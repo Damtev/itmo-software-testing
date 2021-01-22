@@ -3,8 +3,8 @@
     <button @click="navigateToHome">
       Домой
     </button>
-    <form>
-      <button @click="getRandomMotivationNote">Мотивироваться</button>
+    <form @submit.prevent="getRandomMotivationNote">
+      <button type="submit">Мотивироваться</button>
     </form>
   </div>
 </template>

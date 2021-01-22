@@ -3,12 +3,12 @@
     <button @click="navigateToHome">
       Домой
     </button>
-    <form>
+    <form @submit.prevent="findMotivationNotes">
       <label>
         Номер заметки:
         <input v-model="noteId" type="number" />
       </label>
-      <button @click="findMotivationNotes">Найти заметку по номеру</button>
+      <button type="submit">Найти заметку по номеру</button>
     </form>
   </div>
 </template>

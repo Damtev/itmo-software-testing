@@ -3,12 +3,12 @@
     <button @click="navigateToHome">
       Домой
     </button>
-    <form>
+    <form @submit.prevent="findMotivationNotes">
       <label>
-        Мотивационные слова:
+        Подстрока заметки:
         <input v-model="noteSubstring" type="text" />
       </label>
-      <button @click="findMotivationNotes">Найти мотивацию</button>
+      <button type="submit">Найти мотивацию</button>
     </form>
   </div>
 </template>
