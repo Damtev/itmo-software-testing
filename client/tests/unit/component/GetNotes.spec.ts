@@ -1,13 +1,93 @@
 import { expect } from "chai";
-import FindMotivationNotePage from "@/view/views/FindMotivationNotePage.vue";
+import RandomMotivationNotePage from "@/view/views/RandomMotivationNotePage.vue";
 import MotivationNotePage from "@/view/views/MotivationNotePage.vue";
 import router from "@/router/index";
-import { mount, shallowMount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import MotivationNote from "@/model/MotivationNote";
 import { axiosInstance } from "@/main";
+import FindMotivationNotePageById from "@/view/views/FindMotivationNotePageById.vue";
+import { delay } from "mockttp/dist/util/util";
+import FindMotivationNotePage from "@/view/views/FindMotivationNotePage.vue";
+import { MotivationNoteService } from "@/data/MotivationNoteService";
 
 const MockAdapter = require("axios-mock-adapter");
 const mock = new MockAdapter(axiosInstance);
+
+afterEach(() => {
+  MotivationNoteService.clearNotes();
+});
+
+describe("RandomNotePage.vue", () => {
+  it("Get note from random and check it at main page", async () => {
+    const note = new MotivationNote(1, "Testing random note");
+
+    mock.onGet("/random").reply(200, note);
+
+    await router.replace("/random");
+    const randomNotePageWrapper = mount(RandomMotivationNotePage, {
+      router: router
+    });
+    await randomNotePageWrapper.vm.getRandomMotivationNote();
+
+    const motivationNotePageWrapper = mount(MotivationNotePage, {
+      router: router
+    });
+    expect(motivationNotePageWrapper.vm.motivationNotes).to.have.length(1);
+    expect(motivationNotePageWrapper.vm.motivationNotes[0].id).to.be.equal(
+      note.id
+    );
+    expect(motivationNotePageWrapper.vm.motivationNotes[0].text).to.be.equal(
+      note.text
+    );
+    expect(motivationNotePageWrapper.vm.error).to.be.null;
+    expect(motivationNotePageWrapper.contains("ul")).to.be.true;
+    expect(motivationNotePageWrapper.contains("li")).to.be.false;
+
+    console.log(motivationNotePageWrapper.vm.motivationNotes[0].text);
+  });
+});
+
+describe("FindMotivationNotePageById.vue", () => {
+  it("Get note by id and check it at main page", async () => {
+    const notes = [
+      new MotivationNote(12, "Testing searching by id"),
+      new MotivationNote(23, "Should not be seen")
+    ];
+
+    mock.onPost("/id").reply(200, notes[0]);
+
+    await router.replace("/id");
+    const id = notes[0].id;
+    const findMotivationNotePageWrapper = mount(FindMotivationNotePageById, {
+      router: router,
+      data() {
+        return {
+          noteId: id
+        };
+      }
+    });
+    findMotivationNotePageWrapper.setData({
+      noteId: id
+    });
+    await findMotivationNotePageWrapper.vm.findMotivationNotes();
+
+    const motivationNotePageWrapper = mount(MotivationNotePage, {
+      router: router
+    });
+    expect(motivationNotePageWrapper.vm.motivationNotes).to.have.length(1);
+    expect(motivationNotePageWrapper.vm.motivationNotes[0].id).to.be.equal(
+      notes[0].id
+    );
+    expect(motivationNotePageWrapper.vm.motivationNotes[0].text).to.be.equal(
+      notes[0].text
+    );
+    expect(motivationNotePageWrapper.vm.error).to.be.null;
+    expect(motivationNotePageWrapper.contains("ul")).to.be.true;
+    expect(motivationNotePageWrapper.contains("li")).to.be.false;
+
+    console.log(motivationNotePageWrapper.vm.motivationNotes[0].text);
+  });
+});
 
 describe("FindMotivationNotePage.vue", () => {
   it("Get note by substring and check it at main page", async () => {
@@ -24,7 +104,9 @@ describe("FindMotivationNotePage.vue", () => {
 
     const substring = notes[0].text.substr(5, 15);
 
-    mock.onPost("/find", substring).reply(200, [notes[0]]);
+    mock.onPost("/find").reply(200, [notes[0]]);
+
+    await delay(1000);
 
     await router.replace("/find");
     const findMotivationNotePageWrapper = mount(FindMotivationNotePage, {
@@ -38,6 +120,7 @@ describe("FindMotivationNotePage.vue", () => {
     findMotivationNotePageWrapper.setData({
       noteSubstring: substring
     });
+
     await findMotivationNotePageWrapper.vm.findMotivationNotes();
 
     const motivationNotePageWrapper = mount(MotivationNotePage, {

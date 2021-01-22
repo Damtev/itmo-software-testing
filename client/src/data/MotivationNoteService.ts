@@ -17,6 +17,10 @@ export class MotivationNoteService {
     MotivationNoteService.notes.set(motivationNote.id, motivationNote);
   }
 
+  static clearNotes() {
+    MotivationNoteService.notes.clear();
+  }
+
   static async getRandomMotivationNote() {
     const response: AxiosResponse<MotivationNote> = await axiosInstance.get(
       `/random`
