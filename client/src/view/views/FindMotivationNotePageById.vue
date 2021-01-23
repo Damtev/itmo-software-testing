@@ -1,12 +1,12 @@
 <template>
   <div class="find">
-    <button @click="navigateToHome">
+    <button @click="navigateToHome" id="back_home">
       Домой
     </button>
-    <form @submit.prevent="findMotivationNotes">
+    <form @submit.prevent="findMotivationNotes" id="find_note_by_id">
       <label>
         Номер заметки:
-        <input v-model="noteId" type="number" />
+        <input v-model="noteId" type="number" id="input_text" />
       </label>
       <button type="submit">Найти заметку по номеру</button>
     </form>

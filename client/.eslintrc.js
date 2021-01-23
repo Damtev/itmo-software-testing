@@ -10,6 +10,9 @@ module.exports = {
     '@vue/prettier',
     '@vue/prettier/@typescript-eslint'
   ],
+  "plugins": [
+    "cypress"
+  ],
   parserOptions: {
     ecmaVersion: 2020
   },

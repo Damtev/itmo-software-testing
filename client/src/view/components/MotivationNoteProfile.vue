@@ -1,8 +1,8 @@
 <template>
   <div>
     <div v-if="!!motivationNote">
-      <h1>Заметка о мотивации номер {{ motivationNote.id }}</h1>
-      <p>{{ motivationNote.text }}</p>
+      <h1 id="note-title">Заметка о мотивации номер {{ motivationNote.id }}</h1>
+      <p id="note-text">{{ motivationNote.text }}</p>
     </div>
     <div v-else>
       <p>Error: {{ this.error }}</p>

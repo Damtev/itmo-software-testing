@@ -1,12 +1,12 @@
 <template>
   <div class="find">
-    <button @click="navigateToHome">
+    <button @click="navigateToHome" id="back_home">
       Домой
     </button>
-    <form @submit.prevent="findMotivationNotes">
+    <form @submit.prevent="findMotivationNotes" id="find_note_by_substring">
       <label>
         Подстрока заметки:
-        <input v-model="noteSubstring" type="text" />
+        <input v-model="noteSubstring" type="text" id="input_text" />
       </label>
       <button type="submit">Найти мотивацию</button>
     </form>

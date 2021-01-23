@@ -1,9 +1,9 @@
 <template>
   <div class="random">
-    <button @click="navigateToHome">
+    <button @click="navigateToHome" id="back_home">
       Домой
     </button>
-    <form @submit.prevent="getRandomMotivationNote">
+    <form @submit.prevent="getRandomMotivationNote" id="get_random">
       <button type="submit">Мотивироваться</button>
     </form>
   </div>

@@ -1,6 +1,6 @@
 <template>
-  <div class="motivation-notes">
-    <h1>Заметки о мотивации</h1>
+  <div class="motivation-notes" id="motivation-notes">
+    <h1 id="title">Заметки о мотивации</h1>
     <button @click="navigateToRandom" id="random_button">
       Случайная заметка о мотивации
     </button>
@@ -13,6 +13,7 @@
     <ul id="notes">
       <li
         class="motivation-notes__item"
+        id="motivation-notes__item"
         v-for="motivationNote of motivationNotes"
         :key="motivationNote.id"
         @click="navigateToNote(motivationNote)"
