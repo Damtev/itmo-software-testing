@@ -1,6 +1,6 @@
 Inspired by Shalyto A. A.
 
-###### Frontend
+# Frontend
 
 Frontend runs on localhost:8080
 
@@ -20,7 +20,7 @@ Frontend runs on localhost:8080
 
 `npm run test:e2e`
 
-###### NodeJS Backend
+# NodeJS Backend
 
 Listening port 3000
 
@@ -32,7 +32,7 @@ Listening port 3000
 
 `npm start`
 
-###### Spring backend
+# Spring backend
 
 Listening port 3000
 
