@@ -1,5 +1,6 @@
 package ru.itmo.notes.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.itmo.notes.dao.NotesRepository;
@@ -13,6 +14,8 @@ public class NotesController {
 
     private final NotesRepository notesRepository;
 
+    private final RandomNoteChooser randomNoteChooser = new RandomNoteChooser();
+
     public NotesController(NotesRepository notesRepository) {
         this.notesRepository = notesRepository;
     }
@@ -20,7 +23,7 @@ public class NotesController {
     @GetMapping(value = "/random", produces = "application/json")
     public MotivationNote getRandomNote() {
         List<MotivationNote> allNotes = notesRepository.findAll();
-        MotivationNote motivationNote = allNotes.get(new Random().nextInt(allNotes.size()));
+        MotivationNote motivationNote = randomNoteChooser.getRandomNote(allNotes);
         System.out.println(motivationNote);
         return motivationNote;
     }
