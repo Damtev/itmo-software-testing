@@ -15,7 +15,7 @@ jobs:
           command: npm --prefix ./client run test:unit    
   run_spring_test:
     docker:
-      - image: circleci/openjdk:8u151-jdk-stretch
+      - image: cimg/openjdk:11.0
     steps:
       - checkout
       - run:
