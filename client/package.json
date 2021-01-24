@@ -6,10 +6,10 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
+    "test:e2e": "npm run test:e2e:cypress && npm run test:e2e:playwright",
     "lint": "vue-cli-service lint",
     "test:e2e:cypress": "npx cypress run",
-    "test:e2e:playwright": "vue-cli-service test:e2e 'test/e2e/specs/playwright/**/*.spec.ts'"
+    "test:e2e:playwright": "vue-cli-service test:e2e 'tests/e2e/playwright/**/*.spec.js'"
   },
   "dependencies": {
     "@types/sinon": "^9.0.10",
@@ -57,9 +57,22 @@
     "prettier": "^1.19.1",
     "sinon": "^9.2.3",
     "typescript": "~3.9.3",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "playwright": "^1.5.2",
+    "vue-cli-plugin-e2e-playwright": "~0.3.7"
   },
   "prettier": {
     "vueIndentScriptAndStyle": true
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/*.{j,t}s?(x)",
+        "**/tests/e2e/playwright/**/*.spec.{j,t}s?(x)"
+      ],
+      "env": {
+        "mocha": true
+      }
+    }
+  ]
 }
