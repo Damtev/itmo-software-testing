@@ -16,7 +16,7 @@ export default class MotivationNoteController {
   }
 
   async getBySubstring(request: Request, response: Response) {
-    const substring: string = Object.keys(request.body)[0];
+    const substring: string = <string>request.query.substring!!;
     let result: MotivationNote[] = [];
     console.log(substring);
     this.notes.forEach(function (value) {
@@ -33,7 +33,7 @@ export default class MotivationNoteController {
   }
 
     async getById(request: Request, response: Response) {
-        const id: number = parseInt(Object.keys(request.body)[0]);
+        const id: number = parseInt(<string>request.query.id!!);
         let result: MotivationNote | null = null;
         console.log(id);
         if (id >= 1 && id < this.notes.length) {

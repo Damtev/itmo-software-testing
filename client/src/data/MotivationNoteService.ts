@@ -1,6 +1,6 @@
 import MotivationNote from "@/model/MotivationNote";
 import { axiosInstance } from "@/main";
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 
 export class MotivationNoteService {
   private static notes: Map<number, MotivationNote> = new Map();
@@ -22,9 +22,8 @@ export class MotivationNoteService {
   }
 
   static async getRandomMotivationNote() {
-    const response: AxiosResponse<MotivationNote> = await axiosInstance.get(
-      `/random`
-    );
+    const response: AxiosResponse<any> = await axiosInstance.get(`/random`);
+
     const responseData = response.data;
     MotivationNoteService.notes.set(responseData.id, responseData);
   }
@@ -32,7 +31,16 @@ export class MotivationNoteService {
   static async findMotivationNotes(substring: string) {
     const response: AxiosResponse<MotivationNote[]> = await axiosInstance.post(
       "/find",
-      substring
+      {},
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        params: {
+          substring: substring
+        }
+      }
     );
     const responseData = response.data;
     for (const note of responseData) {
@@ -43,7 +51,17 @@ export class MotivationNoteService {
   static async findMotivationNoteById(id: number) {
     const response: AxiosResponse<MotivationNote | null> = await axiosInstance.post(
       "/id",
-      id
+      {},
+      {
+        headers: {
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json"
+        },
+        params: {
+          id: id
+        }
+      }
     );
     const note: MotivationNote | null = response.data;
     if (note) {
