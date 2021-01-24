@@ -45,7 +45,7 @@ public class NotesControllerTest {
 
     @ClassRule
     @Container
-    static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:11.1")
+    static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("circleci/postgres")
             .withDatabaseName("integration-tests-db")
             .withUsername("Damtev")
             .withPassword("Password");

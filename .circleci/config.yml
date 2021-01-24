@@ -16,6 +16,7 @@ jobs:
   run_spring_test:
     docker:
       - image: cimg/openjdk:11.0
+      - image: circleci/postgres
     steps:
       - checkout
       - run:
