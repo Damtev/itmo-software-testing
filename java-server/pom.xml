@@ -14,7 +14,7 @@
     <name>notes</name>
     <description>Backend for motivation notes</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>14</java.version>
         <testcontainers.version>1.15.1</testcontainers.version>
     </properties>
     <dependencies>
